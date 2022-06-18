@@ -1,0 +1,61 @@
+<h1>Employee <small>list</small></h1>
+<hr>
+
+<div class="text-right mb-2 animate__animated animate__fadeIn animate__faster">
+  <button [routerLink]="['../new']"   type="button" name="" id="" class="btn btn-primary shadow">
+    <i class="fas fa-plus    "></i>
+    Add employee</button>
+</div>
+
+<div class="text-center" *ngIf="loading">
+  <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+</div>
+
+
+<div class="table-responsive shadow-sm bg-white mb-5 rounded">
+  <table  *ngIf="employees.length > 0" class="table animate__animated animate__fadeIn animate__faster">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Surnames</th>
+      <th>Age</th>
+      <th>Phone number</th>
+      <th>Tools</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees; let i = index">
+      <td scope="row">{{i+1}}</td>
+      <td>{{employee.email}}</td>
+      <td>{{employee.name}}</td>
+      <td>{{employee.surnames}}</td>
+      <td>{{employee.age}}</td>
+      <td>{{employee.phoneNumber}}</td>
+      <td>
+        <button [routerLink]="['../edit', employee.employeeId]"  type="button" class="btn btn-primary shadow">
+          <i class="fas fa-pencil-alt    "></i>
+        </button>
+        <button (click)="onDelete(employee.employeeId,i)"  type="button" class="btn btn-danger ml-2 shadow">
+          <i class="fas fa-trash-alt    "></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<div class="row animate__animated animate__headShake"
+    *ngIf="employees.length === 0 && !loading">
+  <div class="col">
+    <div class="alert alert-warning text-center" role="alert">
+    <h4 class="alert-heading">No records</h4>
+    <p><i class="fas fa-exclamation  fa-2x  "></i></p>
+    <p class="mb-0">Please add a new employee</p>
+    </div>
+  </div>
+</div>
